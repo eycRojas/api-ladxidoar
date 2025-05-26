@@ -2,6 +2,7 @@ package com.ladxidoar.api_ladxidoar.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -19,7 +20,7 @@ public class Pago {
     @NotBlank
     private String metodoPago;
 
-    @NotBlank
+    @NotNull
     private Double monto;
 
     @NotBlank

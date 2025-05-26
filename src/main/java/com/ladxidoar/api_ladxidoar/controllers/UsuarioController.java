@@ -1,5 +1,6 @@
 package com.ladxidoar.api_ladxidoar.controllers;
 
+import com.ladxidoar.api_ladxidoar.dtos.UsuarioDTO;
 import com.ladxidoar.api_ladxidoar.entities.Usuario;
 import com.ladxidoar.api_ladxidoar.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,16 @@ public class UsuarioController {
     UsuarioService usuarioService;
 
     @PostMapping
-    public ResponseEntity<Usuario> saveUsuario(@RequestBody Usuario usuario) {
+    public ResponseEntity<UsuarioDTO> saveUsuario(@RequestBody Usuario usuario) {
         try {
             Usuario savedUsuario = usuarioService.saveUsuario(usuario);
-            return new ResponseEntity<>(savedUsuario, HttpStatus.OK);
+            UsuarioDTO usuarioDto = new UsuarioDTO();
+            usuarioDto.setId(savedUsuario.getId());
+            usuarioDto.setNombres(savedUsuario.getNombres());
+            usuarioDto.setApellidos(savedUsuario.getApellidos());
+            usuarioDto.setEmail(savedUsuario.getEmail());
+            usuarioDto.setContrasenia(savedUsuario.getContrasenia());
+            return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -47,13 +54,21 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> getUsuarioById(@PathVariable Long id) {
+    public ResponseEntity<UsuarioDTO> getUsuarioById(@PathVariable Long id) {
 
         Optional<Usuario> usuario = usuarioService.getUsuarioById(id);
 
         if (usuario.isPresent()) {
-            //UsuarioDTO usuarioDTO = usuarioService.convertToDTO(usuario.get());
-            return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+            UsuarioDTO usuarioDto = new UsuarioDTO();
+            usuarioDto.setId(usuario.get().getId());
+            usuarioDto.setNombres(usuario.get().getNombres());
+            usuarioDto.setApellidos(usuario.get().getApellidos());
+            usuarioDto.setEmail(usuario.get().getEmail());
+            usuarioDto.setContrasenia(usuario.get().getContrasenia());
+            if(usuario.get().getCarrito()!=null){
+                usuarioDto.setCarritoId(usuario.get().getCarrito().getId());
+            }
+            return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -73,12 +88,19 @@ public class UsuarioController {
     }
 
     @GetMapping("/email/{email}/{contrasenia}")
-    public ResponseEntity<Usuario> getUsuarioByEmailAndContrasenia(@PathVariable String email, @PathVariable String contrasenia) {
-        System.out.println("DATOS: "+ email + " " + contrasenia);
+    public ResponseEntity<UsuarioDTO> getUsuarioByEmailAndContrasenia(@PathVariable String email, @PathVariable String contrasenia) {
         Optional<Usuario> usuario = usuarioService.getUsuarioByEmailAndContrasenia(email, contrasenia);
         if (usuario.isPresent()) {
-            //UsuarioDTO usuarioDTO = usuarioService.convertToDTO(usuario.get());
-            return new ResponseEntity<>(usuario.get(), HttpStatus.OK);
+            UsuarioDTO usuarioDto = new UsuarioDTO();
+            usuarioDto.setId(usuario.get().getId());
+            usuarioDto.setNombres(usuario.get().getNombres());
+            usuarioDto.setApellidos(usuario.get().getApellidos());
+            usuarioDto.setEmail(usuario.get().getEmail());
+            usuarioDto.setContrasenia(usuario.get().getContrasenia());
+            if(usuario.get().getCarrito()!=null){
+                usuarioDto.setCarritoId(usuario.get().getCarrito().getId());
+            }
+            return new ResponseEntity<>(usuarioDto, HttpStatus.OK);
         } else {
             return ResponseEntity.notFound().build();
         }

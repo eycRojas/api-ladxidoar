@@ -13,4 +13,10 @@ public class DetalleCarritoDTO {
 
     private Long productoId;
 
+    public DetalleCarritoDTO(Long id, int cantidad, Long carritoId, Long productoId) {
+        this.id = id;
+        this.cantidad = cantidad;
+        this.carritoId = carritoId;
+        this.productoId = productoId;
+    }
 }

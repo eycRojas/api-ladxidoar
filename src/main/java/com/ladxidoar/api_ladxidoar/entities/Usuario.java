@@ -2,15 +2,13 @@ package com.ladxidoar.api_ladxidoar.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
+@ToString(exclude = {"carrito"})
 @NoArgsConstructor
 @Entity
 public class Usuario {

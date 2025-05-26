@@ -12,6 +12,4 @@ public class CarritoDTO {
 
     private Long usuarioId;
 
-    private List<DetalleCarritoDTO> detalleCarritoDTO = new ArrayList<>();
-
 }

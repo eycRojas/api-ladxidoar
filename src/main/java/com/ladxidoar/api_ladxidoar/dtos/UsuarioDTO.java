@@ -18,11 +18,7 @@ public class UsuarioDTO {
 
     private String contrasenia;
 
-    private CarritoDTO carritoDTO;
-
-    private DireccionDTO direccionDTO;
-
-    private List<VentaDTO> pedidosRealizadosDTO = new ArrayList<>();
+    private Long carritoId;
 
 
 }
